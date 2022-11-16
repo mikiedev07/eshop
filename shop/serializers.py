@@ -5,13 +5,13 @@ from rest_framework import serializers
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['name']
+        fields = '__all__'
 
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields = ['creator', 'products', 'final_cost']
+        fields = '__all__'
 
 
 class CommentSerializer(serializers.ModelSerializer):

@@ -29,7 +29,7 @@ class Product(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=200)
     creation_date = models.DateTimeField(default=timezone.now)
-    picture = models.ForeignKey(Picture, on_delete=models.CASCADE)
+    picture = models.ForeignKey(Picture, on_delete=models.CASCADE, null=True, blank=True)
     price = models.FloatField()
     discount = models.IntegerField()
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
@@ -53,7 +53,8 @@ class Comment(models.Model):
     content = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True)
     rate = models.IntegerField(choices=Rate.choices)
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='comment_replies')
+    # parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='comment_replies')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='comment_replies')
 
     class Meta:
         ordering = ('creation_date',)
