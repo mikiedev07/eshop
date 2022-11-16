@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
 from django.http import Http404
+from .cost_calc import Cost
 
 from .models import (
     Category,
@@ -212,10 +213,18 @@ class CartListView(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        request.data['final_cost'] = 0
         serializer = CartSerializer(data=request.data)
+        cost = Cost()
+
         if serializer.is_valid():
+            for i in request.data['products']:
+                p = Product.objects.get(id=i)
+                cost.add_price(p.price - p.price / 100 * p.discount)
+            serializer.validated_data['final_cost'] = round(cost.price, 2)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -229,7 +238,16 @@ class CartDetailView(APIView):
     def put(self, request, id, format=None):
         cart = self.get_object(id)
         serializer = CartSerializer(cart, data=request.data)
+        prices = []
+        for i in cart.products.all():
+            p = Product.objects.get(title=i)
+            prices.append(p.price)
+
         if serializer.is_valid():
+            for i in request.data['products']:
+                if i not in prices:
+                    p = Product.objects.get(id=i)
+                    serializer.validated_data['final_cost'] += p.price - p.price / 100 * p.discount
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

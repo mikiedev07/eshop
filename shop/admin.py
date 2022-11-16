@@ -1,13 +1,10 @@
 from django.contrib import admin
 from .models import Picture, Product, Comment, Category, Supplier, Cart
 
-
-# class PictureInline(admin.StackedInline):
-#     model = Picture
 #
-#
-# class ProductAdmin(admin.ModelAdmin):
-#     inlines = [PictureInline]
+# class PictureInline(admin.ModelAdmin):
+#     exclude = ("final_cost",)
+#     readonly_fields = ("final_cost",)
 
 
 admin.site.register(Picture)

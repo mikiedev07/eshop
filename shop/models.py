@@ -65,5 +65,5 @@ class Comment(models.Model):
 
 class Cart(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ForeignKey(Product, on_delete=models.CASCADE)
-    final_cost = models.FloatField()
+    products = models.ManyToManyField(Product)
+    final_cost = models.FloatField(blank=True, null=True)
