@@ -20,11 +20,20 @@ from django.views.generic import TemplateView
 from .views import ping
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('ping/', ping, name='ping'),
-    path('api/auth/', include('authentication.urls', namespace='auth')),
-    path('api/shop/', include('shop.urls', namespace='shop')),
-    path('api_schema/', get_schema_view(title='API schema', description='Guide for the REST API'), name='api_schema'),
-    path('', TemplateView.as_view(template_name='swagger.html',
-                                  extra_context={'schema_url': 'api_schema'}), name='swagger-ui'),
+    path("admin/", admin.site.urls),
+    path("ping/", ping, name="ping"),
+    path("api/auth/", include("authentication.urls", namespace="auth")),
+    path("api/shop/", include("shop.urls", namespace="shop")),
+    path(
+        "api_schema/",
+        get_schema_view(title="API schema", description="Guide for the REST API"),
+        name="api_schema",
+    ),
+    path(
+        "",
+        TemplateView.as_view(
+            template_name="swagger.html", extra_context={"schema_url": "api_schema"}
+        ),
+        name="swagger-ui",
+    ),
 ]
