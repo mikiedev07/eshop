@@ -11,13 +11,6 @@ class Category(models.Model):
         return self.name
 
 
-class Supplier(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
 class Picture(models.Model):
     picture = models.ImageField()
 
@@ -32,7 +25,7 @@ class Product(models.Model):
     picture = models.ForeignKey(Picture, on_delete=models.CASCADE, null=True, blank=True)
     price = models.FloatField()
     discount = models.IntegerField()
-    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    supplier = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -1,32 +1,28 @@
 from django.urls import path
+from rest_framework import routers
+from django.urls import include
 
 from .views import (
-    CategoryListView,
-    CategoryDetailAPIView,
-    PictureListView,
-    PictureDetailView,
-    SupplierListView,
-    SupplierDetailView,
-    ProductListView,
-    ProductDetailView,
-    CommentListView,
-    CommentDetailView,
-    CartListView,
-    CartDetailView,
+    CategoryViewSet,
+    PictureViewSet,
+    ProductViewSet,
+    CommentViewSet,
+    CartViewSet,
+    # CartListView,
+    # CartDetailView,
 )
+
+router = routers.DefaultRouter()
+router.register('categories', CategoryViewSet, basename='categories')
+router.register('pictures', PictureViewSet, basename='pictures')
+router.register('products', ProductViewSet, basename='products')
+router.register('comments', CommentViewSet, basename='comments')
+router.register('carts', CartViewSet, basename='carts')
 
 app_name = 'shop'
 urlpatterns = [
-    path('categories/', CategoryListView.as_view()),
-    path('categories/<int:id>', CategoryDetailAPIView.as_view()),
-    path('pictures/', PictureListView.as_view()),
-    path('pictures/<int:id>', PictureDetailView.as_view()),
-    path('suppliers/', SupplierListView.as_view()),
-    path('suppliers/<int:id>', SupplierDetailView.as_view()),
-    path('products/', ProductListView.as_view()),
-    path('products/<int:id>', ProductDetailView.as_view()),
-    path('comments/', CommentListView.as_view()),
-    path('comments/<int:id>', CommentDetailView.as_view()),
-    path('carts/', CartListView.as_view()),
-    path('carts/<int:id>', CartDetailView.as_view()),
+    # path('carts/', CartListView.as_view()),
+    # path('carts/<int:id>', CartDetailView.as_view()),
 ]
+
+urlpatterns += router.urls
