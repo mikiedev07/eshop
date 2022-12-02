@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+# TODO: Third-party libraries!
+
 from pathlib import Path
 import os
-
 import dj_database_url
 import environ
 import datetime
@@ -27,7 +28,7 @@ environ.Env.read_env()
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tuwn3y8dkm9j4^r66!6gqqxh588^)=ix*3))gu*iupocj0p^eh"
+SECRET_KEY = "django-insecure-tuwn3y8dkm9j4^r66!6gqqxh588^)=ix*3))gu*iupocj0p^eh"  # TODO: hide it
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
@@ -86,7 +87,7 @@ WSGI_APPLICATION = "eshop.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
+DATABASES = {  # TODO: connect PostgreSQL
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",

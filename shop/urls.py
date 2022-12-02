@@ -8,8 +8,7 @@ from .views import (
     ProductViewSet,
     CommentViewSet,
     CartViewSet,
-    # CartListView,
-    # CartDetailView,
+    clear_cart,
 )
 
 router = routers.DefaultRouter()
@@ -21,8 +20,7 @@ router.register('carts', CartViewSet, basename='carts')
 
 app_name = 'shop'
 urlpatterns = [
-    # path('carts/', CartListView.as_view()),
-    # path('carts/<int:id>', CartDetailView.as_view()),
+    path('purchase/<int:pk>/', clear_cart)
 ]
 
 urlpatterns += router.urls
