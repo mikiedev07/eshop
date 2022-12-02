@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0004_alter_comment_parent'),
+        ("shop", "0004_alter_comment_parent"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='cart',
-            name='final_cost',
+            model_name="cart",
+            name="final_cost",
             field=models.FloatField(blank=True, null=True),
         ),
     ]

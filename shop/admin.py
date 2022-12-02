@@ -12,4 +12,3 @@ admin.site.register(Product)
 admin.site.register(Comment)
 admin.site.register(Category)
 admin.site.register(Cart)
-

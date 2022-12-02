@@ -8,7 +8,7 @@ from .models import User
 
 
 class JWTAuthentication(authentication.BaseAuthentication):
-    authentication_header_prefix = 'Token'
+    authentication_header_prefix = "Token"
 
     def authenticate(self, request):
         """
@@ -49,8 +49,8 @@ class JWTAuthentication(authentication.BaseAuthentication):
         # Python3 (HINT: использовать PyJWT). Чтобы точно решить это, нам нужно
         # декодировать prefix и token. Это не самый чистый код, но это хорошее
         # решение, потому что возможна ошибка, не сделай мы этого.
-        prefix = auth_header[0].decode('utf-8')
-        token = auth_header[1].decode('utf-8')
+        prefix = auth_header[0].decode("utf-8")
+        token = auth_header[1].decode("utf-8")
 
         if prefix.lower() != auth_header_prefix:
             # Префикс заголовка не тот, который мы ожидали - отказ.
@@ -68,17 +68,17 @@ class JWTAuthentication(authentication.BaseAuthentication):
         try:
             payload = jwt.decode(token, settings.SECRET_KEY)
         except Exception:
-            msg = 'Ошибка аутентификации. Невозможно декодировать токеню'
+            msg = "Ошибка аутентификации. Невозможно декодировать токеню"
             raise exceptions.AuthenticationFailed(msg)
 
         try:
-            user = User.objects.get(pk=payload['id'])
+            user = User.objects.get(pk=payload["id"])
         except User.DoesNotExist:
-            msg = 'Пользователь соответствующий данному токену не найден.'
+            msg = "Пользователь соответствующий данному токену не найден."
             raise exceptions.AuthenticationFailed(msg)
 
         if not user.is_active:
-            msg = 'Данный пользователь деактивирован.'
+            msg = "Данный пользователь деактивирован."
             raise exceptions.AuthenticationFailed(msg)
 
         return (user, token)
